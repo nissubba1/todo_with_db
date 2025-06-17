@@ -3,22 +3,30 @@ from task import Task
 from datetime import datetime
 
 
-def welcome_msg(total_tasks: int, completed_tasks: int, incomplete_tasks: int) -> None:
-    print("******************* Todo List ***********************")
+def welcome_msg(task_list: TaskManager, total_tasks: int, completed_tasks: int, incomplete_tasks: int) -> None:
+    print("******************* Todo App ***********************")
     print(f"Number of Tasks: {total_tasks}")
     print(f"Completed Tasks: {completed_tasks}")
     print(f"Incomplete Tasks: {incomplete_tasks}")
+    print("************* Incompleted Task *********************")
+    if incomplete_tasks > 0:
+        task_list.show_uncompleted_task()
+    else:
+        print("No incomplete tasks found")
+    print("****************************************************")
 
 
 def menu() -> None:
-    print("*" * 40)
+    print("*" * 52)
     print("1. Display all Tasks")
     print("2. Display completed tasks")
     print("3. Display incomplete tasks")
     print("4. Add new task")
     print("5. Remove task")
     print("6. Update task")
-    print("7. Exit")
+    print("7. Mark task as completed")
+    print("8. Exit")
+    print("*" * 52)
 
 
 def get_date_time(prompt: str) -> datetime:
@@ -31,8 +39,8 @@ def get_date_time(prompt: str) -> datetime:
             print("Invalid format. Please use YYYY-MM-DD HH:MM (e.g., 2025-06-17 14:30)")
 
 
-def menu_add_new_task(task_list: TaskManager) -> Task:
-    print("*" * 40)
+def menu_add_new_task(task_list: TaskManager) -> None:
+    print("*" * 52)
     task_id: int | None = None
     while True:
         try:
@@ -49,14 +57,14 @@ def menu_add_new_task(task_list: TaskManager) -> Task:
     task_status: bool = False
     task_note: str = input("Enter note you want to add: ")
     task = Task(task_id, task_title, task_created_at, task_due_date, task_status, task_note)
-    return task
+    task_list.add_task(task)
 
 
-def menu_update_task(task_list: TaskManager, task_id_update: int) -> Task | None:
-    print("*" * 40)
+def menu_update_task(task_list: TaskManager, task_id_update: int) -> None:
+    print("*" * 52)
     if not task_list.is_task(task_id_update):
         print("Task ID not found")
-        return None
+        return
     task: Task = task_list.get_task(task_id_update)
     updated_task_title = task.title
     updated_task_created_at: datetime = task.created_at
@@ -81,7 +89,7 @@ def menu_update_task(task_list: TaskManager, task_id_update: int) -> Task | None
         updated_task_note = task_note
     task = Task(task_id_update, updated_task_title, updated_task_created_at, updated_task_due_date, updated_task_status,
                 updated_task_note)
-    return task
+    task_list.update_task(task)
 
 
 if __name__ == "__main__":
@@ -90,8 +98,8 @@ if __name__ == "__main__":
     total_count_incomplete: int = manager.count_incompleted_tasks()
     total_count_complete: int = manager.count_completed_task()
     choice = 0
-    welcome_msg(total_count, total_count_complete, total_count_incomplete)
-    while choice != 7:
+    welcome_msg(manager, total_count, total_count_complete, total_count_incomplete)
+    while choice != 8:
         menu()
         try:
             choice = int(input("Enter your choice: "))
@@ -103,21 +111,31 @@ if __name__ == "__main__":
                 case 3:
                     manager.show_uncompleted_task()
                 case 4:
-                    manager.add_task(menu_add_new_task(manager))
+                    menu_add_new_task(manager)
                 case 5:
                     del_task_id: int = int(input("Enter task ID: "))
                     manager.delete_task(del_task_id)
+                case 6:
+                    update_task_id: int = int(input("Enter task ID to update: "))
+                    menu_update_task(manager, update_task_id)
+                case 7:
+                    task_to_complete: int = int(input("Enter task ID you want to mark complete: "))
+                    manager.set_complete(task_to_complete)
+                case 8:
+                    print("Exiting program ...")
         except ValueError:
             print("Invalid input, please enter numeric input.")
 
-    task1 = Task(1, "Task 1", datetime.now(), datetime(2025, 6, 20, 10, 50), False, "This is note")
-    task2 = Task(2, "Task 2", datetime.now(), datetime(2025, 6, 20, 10, 50), False, "This is note 2")
-    task3 = Task(3, "Task 3", datetime.now(), datetime(2025, 6, 20, 10, 50), False, "This is note 3")
-    manager.add_task(task1)
-    manager.add_task(task2)
-    manager.add_task(task3)
-    manager.delete_task(2)
-    task_update = Task(3, "new title", datetime.now(), datetime(2025, 6, 20, 10, 50), True, "This is updated note")
-    manager.update_task(task_update)
-    manager.set_complete(3)
-    manager.show_all_tasks()
+        manager.close_connection()
+
+    # task1 = Task(1, "Task 1", datetime.now(), datetime(2025, 6, 20, 10, 50), False, "This is note")
+    # task2 = Task(2, "Task 2", datetime.now(), datetime(2025, 6, 20, 10, 50), False, "This is note 2")
+    # task3 = Task(3, "Task 3", datetime.now(), datetime(2025, 6, 20, 10, 50), False, "This is note 3")
+    # manager.add_task(task1)
+    # manager.add_task(task2)
+    # manager.add_task(task3)
+    # manager.delete_task(2)
+    # task_update = Task(3, "new title", datetime.now(), datetime(2025, 6, 20, 10, 50), True, "This is updated note")
+    # manager.update_task(task_update)
+    # manager.set_complete(3)
+    # manager.show_all_tasks()

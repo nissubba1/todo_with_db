@@ -99,7 +99,7 @@ class DatabaseConfig:
                 return row[0]
             return None
         except (Exception, psycopg2.DatabaseError) as error:
-            print("Error fetching value", error)
+            print("Error fetching value in db", error)
 
     def execute_query(self, query: str, params=None) -> bool:
         try:

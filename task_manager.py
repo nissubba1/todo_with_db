@@ -67,26 +67,26 @@ class TaskManager:
 
     def count_completed_task(self) -> int:
         query_stmt: str = "SELECT COUNT(*) FROM tasks WHERE is_complete = %s"
-        result: int | None = self.db.fetch_value(query_stmt, False)
+        result: int | None = self.db.fetch_value(query_stmt, (True,))
         if result is not None:
             return result
         return -1
 
     def count_incompleted_tasks(self):
         query_stmt: str = "SELECT COUNT(*) FROM tasks WHERE is_complete = %s"
-        result: int | None = self.db.fetch_value(query_stmt, True)
+        result: int | None = self.db.fetch_value(query_stmt, (False,))
         if result is not None:
             return result
         return -1
 
     def show_completed_task(self) -> None:
         query_stmt: str = "SELECT * FROM tasks WHERE is_complete = %s"
-        result: list[Task] = self.db.fetch_all_tasks(query_stmt, True)
+        result: list[Task] = self.db.fetch_all_tasks(query_stmt, (True,))
         self.display_tasks(result)
 
     def show_uncompleted_task(self) -> None:
         query_stmt: str = "SELECT * FROM tasks WHERE is_complete = %s"
-        result: list[Task] = self.db.fetch_all_tasks(query_stmt, False)
+        result: list[Task] = self.db.fetch_all_tasks(query_stmt, (False,))
         self.display_tasks(result)
 
     def get_task(self, task_id: int) -> Task | None:
@@ -95,6 +95,7 @@ class TaskManager:
             result: Task | None = self.db.fetch_task(query_stmt, (task_id,))
             return result
         return None
+
     @staticmethod
     def display_tasks(tasks_list: list[Task]) -> None:
         for task in tasks_list:
@@ -106,3 +107,7 @@ class TaskManager:
         query_stmt = "SELECT * FROM tasks"
         result: list[Task] = self.db.fetch_all_tasks(query_stmt)
         self.display_tasks(result)
+
+    def close_connection(self):
+        self.db.close()
+        print("DB connection closed")
