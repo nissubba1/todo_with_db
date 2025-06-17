@@ -9,23 +9,36 @@ This is a command-line Todo List application built in Python that uses PostgreSQ
 - ❌ Delete tasks by ID
 - 💾 Persistent data storage using PostgreSQL
 - 🔐 Environment variable support for secure database credentials (via .env)
+- 🗂️ Interactive CLI menu for easy task management
+- 🧪 Unit tests implemented with pytest for reliable code quality
 
 ## 🛠️ Tech Stack
 - Python 3.11+
 - PostgreSQL 17
 - psycopg2 – for database connection
 - python-dotenv – for managing environment variables
+- pytest - unit test for test_manager class
 
 ## 📂 Project Structure
 
 ```
 todo_with_db/
-├── database_config.py       # Handles DB connection and queries
-├── task.py                  # Task class model
-├── task_manager.py          # Main logic for task operations
-├── main.py                  # Entry point to run the app
-├── requirements.txt         # Project dependencies
-└── .env                     # Environment variables (not committed)
+├── todo/                     # Main application package
+│   ├── __init__.py
+│   ├── database_config.py    # DB connection and queries
+│   ├── task.py               # Task class model
+│   ├── task_manager.py       # Core task operations logic
+│
+├── test/                    # Test suite
+│   ├── __init__.py
+│   ├── test_task_manager.py
+│
+├── .env                      # Environment variables (gitignored)
+├── .gitignore                # Ignore.
+├── main.py                   # Entry point to run the app
+├── requirements.txt          # Python dependencies
+└── README.md                 # Project documentation
+
 ```
 
 ## 🧪 Getting Started
@@ -53,4 +66,8 @@ pip install -r requirements.txt
 5. Run the code
 ```bash
 python3 main.py
+```
+6. Run the tests
+```bash
+pytest -v test/test_task_manager.py
 ```

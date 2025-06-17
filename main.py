@@ -1,5 +1,5 @@
-from task_manager import TaskManager
-from task import Task
+from todo.task_manager import TaskManager
+from todo.task import Task
 from datetime import datetime
 
 
@@ -126,7 +126,7 @@ if __name__ == "__main__":
         except ValueError:
             print("Invalid input, please enter numeric input.")
 
-        manager.close_connection()
+    manager.close_connection()
 
     # task1 = Task(1, "Task 1", datetime.now(), datetime(2025, 6, 20, 10, 50), False, "This is note")
     # task2 = Task(2, "Task 2", datetime.now(), datetime(2025, 6, 20, 10, 50), False, "This is note 2")

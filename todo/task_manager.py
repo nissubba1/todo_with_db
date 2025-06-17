@@ -1,5 +1,5 @@
-from task import Task
-from database_config import DatabaseConfig
+from .task import Task
+from db_config.database_config import DatabaseConfig
 
 
 class TaskManager:
