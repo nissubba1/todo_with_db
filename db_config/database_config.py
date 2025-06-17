@@ -8,6 +8,9 @@ load_dotenv()
 
 class DatabaseConfig:
     def __init__(self) -> None:
+        """
+        Create the database connection
+        """
         try:
             self.conn = psycopg2.connect(
                 host=os.getenv("DB_HOST"),
@@ -26,6 +29,12 @@ class DatabaseConfig:
             self.cur = None
 
     def fetch_all_tasks(self, query: str, params=None) -> list:
+        """
+        Fetches all tasks from the database.
+        :param query: SQL query to execute
+        :param params: Arguments to pass to the SQL query
+        :return: List of tasks from the database
+        """
         try:
             self.cur.execute(query, params)
             result_list: list[tuple] = self.cur.fetchall()
@@ -41,6 +50,12 @@ class DatabaseConfig:
             return []
 
     def fetch_task(self, query: str, params=None) -> Task | None:
+        """
+        Fetches a single task from the database.
+        :param query: SQL query to execute
+        :param params: Arguments to pass to the SQL query
+        :return: A single Task object or None if not found
+        """
         try:
             self.cur.execute(query, params)
             row: tuple = self.cur.fetchone()
@@ -52,6 +67,10 @@ class DatabaseConfig:
             return None
 
     def create_table(self) -> bool:
+        """
+        Creates the table if it doesn't already exist.
+        :return: None
+        """
         try:
             query_stmt: str = ("CREATE TABLE IF NOT EXISTS tasks "
                                "(task_id INT PRIMARY KEY, "
@@ -68,6 +87,12 @@ class DatabaseConfig:
             return False
 
     def insert_task(self, query, params=None) -> bool:
+        """
+        Inserts a single task from the database.
+        :param query: SQL query to execute
+        :param params: Arguments to pass to the SQL query
+        :return: True if the task was successfully inserted else False
+        """
         try:
             self.cur.execute(query, params)
             return True
@@ -76,6 +101,12 @@ class DatabaseConfig:
             return False
 
     def delete_task(self, query: str, params=None) -> bool:
+        """
+        Deletes a single task from the database.
+        :param query: SQL query to execute
+        :param params: Arguments to pass to the SQL query
+        :return: True if the task was successfully deleted else False
+        """
         try:
             self.cur.execute(query, params)
             return True
@@ -84,6 +115,12 @@ class DatabaseConfig:
             return False
 
     def update_task(self, query: str, params=None) -> bool:
+        """
+        Updates a single task from the database.
+        :param query: SQL query to execute
+        :param params: Arguments to pass to the SQL query
+        :return: True if the task was successfully updated else False
+        """
         try:
             self.cur.execute(query, params)
             return True
@@ -92,6 +129,12 @@ class DatabaseConfig:
             return False
 
     def fetch_value(self, query: str, params=None) -> int | None:
+        """
+        Fetches a single value from the database.
+        :param query: SQL query to execute
+        :param params: Arguments to pass to the SQL query
+        :return: Integer value or None if not found
+        """
         try:
             self.cur.execute(query, params)
             row = self.cur.fetchone()
@@ -102,6 +145,12 @@ class DatabaseConfig:
             print("Error fetching value in db", error)
 
     def execute_query(self, query: str, params=None) -> bool:
+        """
+        Executes a SQL query.
+        :param query: SQL query to execute
+        :param params: Arguments to pass to the SQL query
+        :return: True if the task was successfully executed else False
+        """
         try:
             result = self.cur.execute(query, params)
             if result:
@@ -112,6 +161,10 @@ class DatabaseConfig:
             return False
 
     def close(self) -> None:
+        """
+        Closes the database connection
+        :return: None
+        """
         if self.conn:
             self.conn.close()
             print("Database connection closed")

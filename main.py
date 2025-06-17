@@ -4,6 +4,14 @@ from datetime import datetime
 
 
 def welcome_msg(task_list: TaskManager, total_tasks: int, completed_tasks: int, incomplete_tasks: int) -> None:
+    """
+    Shows the welcome message and current stats
+    :param task_list: List of tasks currently in the database
+    :param total_tasks: Number of tasks currently in the database
+    :param completed_tasks: Number of completed tasks currently in the database
+    :param incomplete_tasks: Number of incomplete tasks currently in the database
+    :return: None
+    """
     print("******************* Todo App ***********************")
     print(f"Number of Tasks: {total_tasks}")
     print(f"Completed Tasks: {completed_tasks}")
@@ -17,6 +25,10 @@ def welcome_msg(task_list: TaskManager, total_tasks: int, completed_tasks: int, 
 
 
 def menu() -> None:
+    """
+    Main menu to display and ask for user choice
+    :return: None
+    """
     print("*" * 52)
     print("1. Display all Tasks")
     print("2. Display completed tasks")
@@ -30,6 +42,12 @@ def menu() -> None:
 
 
 def get_date_time(prompt: str) -> datetime:
+    """
+    Helper Function
+    Format the date and time
+    :param prompt: Prompt to ask user to enter date and time
+    :return: Formatted date and time
+    """
     while True:
         date_input = input(prompt)
         try:
@@ -40,6 +58,11 @@ def get_date_time(prompt: str) -> datetime:
 
 
 def menu_add_new_task(task_list: TaskManager) -> None:
+    """
+    Ask the user for new task details, create a new Task, and add to database
+    :param task_list: Current instance of task manager object
+    :return: None
+    """
     print("*" * 52)
     task_id: int | None = None
     while True:
@@ -61,6 +84,12 @@ def menu_add_new_task(task_list: TaskManager) -> None:
 
 
 def menu_update_task(task_list: TaskManager, task_id_update: int) -> None:
+    """
+    Ask the user for updated task details for the task id to update
+    :param task_list: Current instance of task manager object
+    :param task_id_update: Task ID to update
+    :return: None
+    """
     print("*" * 52)
     if not task_list.is_task(task_id_update):
         print("Task ID not found")
@@ -127,15 +156,3 @@ if __name__ == "__main__":
             print("Invalid input, please enter numeric input.")
 
     manager.close_connection()
-
-    # task1 = Task(1, "Task 1", datetime.now(), datetime(2025, 6, 20, 10, 50), False, "This is note")
-    # task2 = Task(2, "Task 2", datetime.now(), datetime(2025, 6, 20, 10, 50), False, "This is note 2")
-    # task3 = Task(3, "Task 3", datetime.now(), datetime(2025, 6, 20, 10, 50), False, "This is note 3")
-    # manager.add_task(task1)
-    # manager.add_task(task2)
-    # manager.add_task(task3)
-    # manager.delete_task(2)
-    # task_update = Task(3, "new title", datetime.now(), datetime(2025, 6, 20, 10, 50), True, "This is updated note")
-    # manager.update_task(task_update)
-    # manager.set_complete(3)
-    # manager.show_all_tasks()

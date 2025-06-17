@@ -5,6 +5,16 @@ from typing import Optional
 class Task:
     def __init__(self, task_id: int, title: str, created_at: datetime, due_date: datetime, is_complete: bool,
                  note: Optional[str] = None) -> None:
+        """
+        Initialize a Task instance.
+
+        :param task_id: Unique identifier for the task.
+        :param title: Title or name of the task.
+        :param created_at: Timestamp when the task was created.
+        :param due_date: Deadline for the task.
+        :param is_complete: Status indicating if the task is complete.
+        :param note: Optional additional note or description for the task.
+        """
         self._task_id = task_id
         self._title = title
         self._created_at = created_at
