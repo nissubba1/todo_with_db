@@ -1,7 +1,7 @@
 ############################################################
 # Project Name : Todo App
 # File Name    : db_config/database_config.py
-# Author       : Nishan Subba
+# Author       : @nissubba1
 # Created Date : 2025-06-16
 # Updated Date : 2025-06-17
 # Description  : Class for creating database connection and performing CRUD operations

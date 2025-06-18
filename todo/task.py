@@ -1,7 +1,7 @@
 ############################################################
 # Project Name : Todo App
 # File Name    : todo/task.py
-# Author       : Nishan Subba
+# Author       : @nissubba1
 # Created Date : 2025-06-16
 # Updated Date : 2025-06-17
 # Description  : Class to create new abstract task object
