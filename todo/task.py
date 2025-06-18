@@ -1,3 +1,12 @@
+############################################################
+# Project Name : Todo App
+# File Name    : todo/task.py
+# Author       : Nishan Subba
+# Created Date : 2025-06-16
+# Updated Date : 2025-06-17
+# Description  : Class to create new abstract task object
+############################################################
+
 from datetime import datetime
 from typing import Optional
 

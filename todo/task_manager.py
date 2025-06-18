@@ -1,3 +1,12 @@
+############################################################
+# Project Name : Todo App
+# File Name    : todo/task_manager.py
+# Author       : Nishan Subba
+# Created Date : 2025-06-16
+# Updated Date : 2025-06-17
+# Description  : Class to manage tasks and perform CURD operations with persistent database connection
+############################################################
+
 from .task import Task
 from db_config.database_config import DatabaseConfig
 

@@ -1,3 +1,12 @@
+############################################################
+# Project Name : Todo App
+# File Name    : db_config/database_config.py
+# Author       : Nishan Subba
+# Created Date : 2025-06-16
+# Updated Date : 2025-06-17
+# Description  : Class for creating database connection and performing CRUD operations
+############################################################
+
 from todo.task import Task
 from dotenv import load_dotenv
 import psycopg2

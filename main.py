@@ -1,3 +1,12 @@
+############################################################
+# Project Name : Todo App
+# File Name    : main.py
+# Author       : Nishan Subba
+# Created Date : 2025-06-16
+# Updated Date : 2025-06-17
+# Description  : Entry point to the program
+############################################################
+
 from todo.task_manager import TaskManager
 from todo.task import Task
 from datetime import datetime
